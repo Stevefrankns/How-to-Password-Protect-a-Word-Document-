@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://password-protect-a-word-document.vercel.app/sitemap.xml
+Sitemap: https://stevefrankns.github.io/Folder-Lock-Software-Review/sitemap.xml
