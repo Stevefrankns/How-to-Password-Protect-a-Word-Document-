@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 
-<html lang="en">
+
+
+
+ Repair build: UI-MEDIA-ALIGNMENT-V4-2026-10-05-QA-2026-10-05-V2 
+<!-- Repair build: UI-MEDIA-ALIGNMENT-V4-2026-10-05 --><html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -18,12 +22,12 @@
             --color-border-strong:rgba(232,201,122,.55);
             --color-body-text:#D4CEBB;
             --color-heading-text:#F3EBD8;
-            --color-meta-text:#7A7364;
+            --color-meta-text:#AAA18D;
             --font-heading:'Cormorant Garamond',serif;
             --font-body:'Jost',sans-serif;
             --max-reading-width:760px;
             --max-wide-width:1120px;
-            --section-padding-v:88px;
+            --section-padding-v:72px;
             --shadow-card:0 28px 70px rgba(0,0,0,.46);
             --transition-speed:.28s;
             --parallax-y:0px;
@@ -81,7 +85,7 @@
         .brand-text{font-family:var(--font-heading);font-size:1.35rem;font-weight:700;color:var(--color-heading-text);white-space:nowrap;word-spacing:.08em;letter-spacing:.02em}
         .nav-links{display:flex;gap:1.55rem;align-items:center}.nav-links a{color:var(--color-body-text);font-size:.86rem;font-weight:300;letter-spacing:.08em}.nav-links a:hover{color:var(--color-gold-light);text-decoration:none}
         .mobile-menu-btn{display:none;background:transparent;border:1px solid var(--color-border);color:var(--color-gold-light);width:42px;height:42px;font-size:1.4rem;cursor:pointer;border-radius:0}
-        .hero-editorial{min-height:92vh;display:grid;align-items:center;background:radial-gradient(circle at 15% 15%,rgba(201,168,76,.12),transparent 34%),radial-gradient(circle at 90% 10%,rgba(232,201,122,.075),transparent 28%),repeating-linear-gradient(45deg,rgba(201,168,76,.04) 0 1px,transparent 1px 60px),var(--color-bg);padding:7rem 0 5rem;position:relative;overflow:hidden}
+        .hero-editorial{min-height:auto;display:grid;align-items:center;background:radial-gradient(circle at 15% 15%,rgba(201,168,76,.12),transparent 34%),radial-gradient(circle at 90% 10%,rgba(232,201,122,.075),transparent 28%),repeating-linear-gradient(45deg,rgba(201,168,76,.04) 0 1px,transparent 1px 60px),var(--color-bg);padding:5rem 0 4rem;position:relative;overflow:hidden}
         .hero-editorial::after{content:"";position:absolute;inset:auto 0 0;height:1px;background:var(--gold-gradient);opacity:.45}.hero-editorial h1::after{content:"";display:block;width:min(420px,72vw);height:1px;background:var(--gold-gradient);margin:1.35rem 0 1.15rem}.hero-editorial p[style]{color:var(--color-body-text)!important;font-weight:300}
         .hero-meta{display:flex;flex-wrap:wrap;align-items:center;gap:.85rem;font-size:.9rem;color:var(--color-meta-text);margin-bottom:2rem;border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:.9rem 0}.hero-meta strong{color:var(--color-gold-light)}
         .expert-rating-box{background:linear-gradient(145deg,rgba(201,168,76,.08),rgba(232,201,122,.025)),var(--color-surface);border:1px solid var(--color-border);border-radius:0;padding:2rem;margin-top:3rem;box-shadow:var(--shadow-card);display:flex;gap:2rem;align-items:center}
@@ -103,23 +107,134 @@
         @media(max-width:960px){.nav-links{gap:1rem}.nav-links a{font-size:.78rem}}
         @media(max-width:768px){h1{font-size:42px}h2{font-size:2rem}.site-header{padding:.75rem 0}.nav-links{display:none;position:absolute;top:100%;left:0;width:100%;background:rgba(10,10,9,.98);flex-direction:column;align-items:flex-start;padding:2rem 5%;border-bottom:1px solid var(--color-border);box-shadow:0 24px 45px rgba(0,0,0,.35)}.nav-links.active{display:flex}.mobile-menu-btn{display:grid;place-items:center}.toc-list{columns:1}.two-col,.pricing-grid{grid-template-columns:1fr}.expert-rating-box{flex-direction:column;align-items:flex-start;text-align:left}.rating-score{font-size:3.6rem}.saas-actions{flex-direction:column}.luxury-certificate{width:100%;padding:2.8rem 1.25rem 1.4rem}.wax-seal{right:50%;transform:translateX(50%)}.dot-matrix{display:block;overflow-x:auto;white-space:nowrap}.chat-q,.chat-a{max-width:100%}.brand-text{font-size:1.15rem}.footer-grid{grid-template-columns:1fr}}
         @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:1ms!important}}
+
+
+/* V4: stable official-media rendering + graceful fallback */
+.safe-media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 220px;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+  border: 1px solid rgba(125,170,220,.22);
+}
+.safe-media > .media-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  text-align: center;
+  color: inherit;
+  opacity: .76;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.safe-media > img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 460px;
+  height: auto;
+  object-fit: contain;
+  background: transparent;
+}
+.safe-media figcaption { position: relative; z-index: 2; width: 100%; }
+
+.hero-editorial .container{width:min(1180px,calc(100% - 48px));margin-inline:auto}
+.hero-editorial .word-hero-grid.word-hero-text-only{display:block;max-width:1000px;margin-inline:auto}
+.hero-editorial .word-hero-copy{width:100%;margin-inline:auto}
+.section .container{width:min(900px,calc(100% - 48px));margin-inline:auto}
+.word-folderlock-gallery{
+ display:grid;grid-template-columns:minmax(220px,.82fr) minmax(320px,1.18fr);
+ gap:1.5rem;align-items:center;margin:2rem auto 0;max-width:980px
+}
+.word-folderlock-boxshot,.word-folderlock-screen{min-height:320px;border-radius:16px}
+.word-folderlock-boxshot img{max-height:360px}.word-folderlock-screen img{max-height:420px}
+@media(max-width:760px){
+ .hero-editorial .container,.section .container{width:min(100% - 32px,900px)}
+ .word-folderlock-gallery{grid-template-columns:1fr}
+ .word-folderlock-boxshot,.word-folderlock-screen{min-height:240px}
+}
+
 </style>
-<meta content="Learn how to password protect a Word document in Word for Windows and Mac, understand password-to-open versus editing restrictions, remove a known password, and avoid lockout or compatibility problems." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><link href="https://password-protect-a-word-document.vercel.app/" rel="canonical"/><meta content="article" property="og:type"/><meta content="How to Password Protect a Word Document" property="og:title"/><meta content="Learn how to password protect a Word document in Word for Windows and Mac, understand password-to-open versus editing restrictions, remove a known password, and avoid lockout or compatibility problems." property="og:description"/><meta content="https://password-protect-a-word-document.vercel.app/" property="og:url"/><meta content="https://i.ibb.co/S4KrpkM2/microsoft-365-security.jpg" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="How to Password Protect a Word Document" name="twitter:title"/><meta content="Learn how to password protect a Word document in Word for Windows and Mac, understand password-to-open versus editing restrictions, remove a known password, and avoid lockout or compatibility problems." name="twitter:description"/><style>
-.answer-box{border-left:4px solid var(--accent,#6c63ff);padding:20px 22px;margin:24px 0;background:rgba(108,99,255,.08);border-radius:0 14px 14px 0}
+<meta content="Learn how to password protect Word documents on Windows and Mac, restrict editing, remove known passwords, and use broader file protection when needed." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><link href="https://password-protect-a-word-document.vercel.app/" rel="canonical"/><meta content="article" property="og:type"/><meta content="How to Password Protect a Word Document" property="og:title"/><meta content="Learn how to password protect Word documents on Windows and Mac, restrict editing, remove known passwords, and use broader file protection when needed." property="og:description"/><meta content="https://password-protect-a-word-document.vercel.app/" property="og:url"/><meta content="https://www.newsoftwares.net/wp-content/uploads/2025/12/fl-boxshot-HI-res-3.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="How to Password Protect a Word Document" name="twitter:title"/><meta content="Learn how to password protect Word documents on Windows and Mac, restrict editing, remove known passwords, and use broader file protection when needed." name="twitter:description"/><meta content="https://www.newsoftwares.net/wp-content/uploads/2025/12/fl-boxshot-HI-res-3.png" name="twitter:image"/><style>
+.answer-box{border-left:4px solid var(--color-gold);padding:20px 22px;margin:24px 0;background:rgba(201,168,76,.08);border-radius:0 14px 14px 0}
 .answer-box strong{display:block;margin-bottom:6px}
 .step-list{counter-reset:step;list-style:none;padding:0;margin:24px 0}
 .step-list li{counter-increment:step;position:relative;padding:0 0 22px 58px}
-.step-list li:before{content:counter(step);position:absolute;left:0;top:0;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#6c63ff;color:#fff;font-weight:700}
+.step-list li:before{content:counter(step);position:absolute;left:0;top:0;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--gold-gradient);color:#0A0A09;font-weight:700}
 .warning-box{padding:20px 22px;border:1px solid rgba(214,76,76,.28);background:rgba(214,76,76,.07);border-radius:14px;margin:24px 0}
 .note-box{padding:18px 20px;border:1px solid rgba(66,133,244,.25);background:rgba(66,133,244,.07);border-radius:14px;margin:22px 0}
 .method-table{width:100%;border-collapse:collapse;margin:24px 0}
-.method-table th,.method-table td{padding:14px 12px;border-bottom:1px solid rgba(0,0,0,.12);text-align:left;vertical-align:top}
+.method-table th,.method-table td{padding:14px 12px;border-bottom:1px solid var(--color-border);text-align:left;vertical-align:top}
 .method-table th{font-weight:700}
 .hero-editorial img{max-width:100%;border-radius:18px}
-.faq-item{border-bottom:1px solid rgba(0,0,0,.12);padding:18px 0}
+.faq-item{border-bottom:1px solid var(--color-border);padding:18px 0}
 .faq-item h3{margin:0 0 8px}
-.small-print{font-size:.92rem;opacity:.78}
-</style></head>
+.small-print{font-size:.92rem;opacity:.86}
+
+.related-resource{margin:1.8rem 0 0;padding:1.5rem;border:1px solid var(--color-border-strong);background:linear-gradient(135deg,rgba(201,168,76,.10),rgba(232,201,122,.025)),var(--color-surface)}
+.related-resource h3{margin-top:0;color:var(--color-gold-light)}
+.resource-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:1rem}
+footer{background:#060605;border-top:1px solid var(--color-border);padding:2.6rem 0;margin-top:0;color:var(--color-body-text);text-align:center}
+footer p{margin-bottom:.8rem}
+.footer-resource-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:1rem 0}
+@media(max-width:768px){.hero-editorial{padding:3.4rem 0 3rem}.section{padding:58px 0}.resource-actions{flex-direction:column}.resource-actions .btn{width:100%}}
+
+/* Screenshot QA V2: mobile containment + table overflow fix */
+html, body { width:100%; max-width:100%; overflow-x:hidden; }
+header, section, footer { width:100%; max-width:100%; }
+.container, .nav-container { width:100%; min-width:0; max-width:100%; }
+.method-table { max-width:100%; }
+@media (max-width:768px) {
+    .container, .nav-container { padding-left:18px; padding-right:18px; }
+    .method-table { display:block; width:100%; max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .hero-editorial { min-height:0; }
+}
+</style><style>
+
+/* v3-folderlock-recommendation-2026-10-05 */
+.folderlock-recommendation{margin-top:2rem;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:2rem;align-items:stretch}
+.folderlock-copy,.folderlock-visual{min-width:0}
+.folderlock-product-card{height:100%;border:1px solid rgba(94,207,255,.28);background:linear-gradient(145deg,rgba(9,26,47,.98),rgba(7,18,33,.98));border-radius:22px;padding:26px;box-shadow:0 24px 60px rgba(0,0,0,.24)}
+.folderlock-product-card h3{margin:.35rem 0 .8rem;color:#fff;font-size:1.45rem;line-height:1.25}
+.folderlock-product-card p{color:#c8d7ea}
+.folderlock-kicker{display:inline-flex;padding:7px 11px;border-radius:999px;background:rgba(0,212,255,.11);border:1px solid rgba(0,212,255,.3);color:#7de7ff;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.folderlock-feature-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;margin:18px 0;padding:0;list-style:none}
+.folderlock-feature-list li{position:relative;padding-left:22px;color:#dce9f6;font-size:.94rem;line-height:1.5}
+.folderlock-feature-list li::before{content:'✓';position:absolute;left:0;top:0;color:#52d8ff;font-weight:900}
+.folderlock-pricing{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}
+.folderlock-plan{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);border-radius:15px;padding:15px}
+.folderlock-plan strong{display:block;color:#fff;font-size:1.05rem;margin-bottom:4px}
+.folderlock-price{display:block;color:#66e0ff;font-size:1.35rem;font-weight:900;margin:4px 0}
+.folderlock-plan small{display:block;color:#9fb4c9;line-height:1.45}
+.folderlock-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.folderlock-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:800;border-radius:12px;padding:12px 16px;transition:.2s ease}
+.folderlock-actions .fl-primary{background:linear-gradient(135deg,#00d4ff,#5f6fff);color:#03111f}
+.folderlock-actions .fl-secondary{border:1px solid rgba(255,255,255,.2);color:#eaf6ff;background:rgba(255,255,255,.04)}
+.folderlock-price-note{margin-top:10px!important;font-size:.78rem!important;color:#8fa4bb!important}
+.folderlock-media-stack{display:grid;gap:14px;height:100%}
+.folderlock-boxshot-wrap,.folderlock-screen-wrap{border:1px solid rgba(255,255,255,.12);background:linear-gradient(145deg,#fff,#eef5fb);border-radius:20px;padding:18px;display:grid;place-items:center;overflow:hidden}
+.folderlock-boxshot-wrap img{display:block;width:auto;max-width:100%;height:auto;max-height:330px;object-fit:contain}
+.folderlock-screen-wrap img{display:block;width:100%;height:auto;max-height:360px;object-fit:contain;border-radius:12px}
+.folderlock-media-caption{margin:.45rem 0 0;text-align:center;color:#9eb3c7;font-size:.78rem;line-height:1.4}
+@media(max-width:860px){.folderlock-recommendation{grid-template-columns:1fr}.folderlock-feature-list,.folderlock-pricing{grid-template-columns:1fr 1fr}.folderlock-boxshot-wrap img{max-height:270px}}
+@media(max-width:520px){.folderlock-feature-list,.folderlock-pricing{grid-template-columns:1fr}.folderlock-product-card{padding:20px}.folderlock-actions a{width:100%}}
+
+.word-hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);gap:3rem;align-items:center}
+.word-hero-copy{min-width:0}.word-hero-copy .answer-box{margin-bottom:0}
+.word-hero-visual{margin:0;min-width:0;border:1px solid var(--color-border);background:#0d0d0b;padding:12px;box-shadow:var(--shadow-card);border-radius:18px;overflow:hidden}
+.word-hero-visual img{display:block;width:100%;height:auto;max-height:500px;object-fit:contain;border-radius:12px}
+.word-hero-visual figcaption{padding:10px 6px 2px;color:var(--color-meta-text);font-size:.8rem;line-height:1.45;text-align:center}
+@media(max-width:900px){.word-hero-grid{grid-template-columns:1fr;gap:1.7rem}.word-hero-visual{max-width:720px;margin:0 auto;width:100%}}
+
+</style>
+</head>
 <body>
 <header class="site-header">
 <div class="nav-container">
@@ -138,14 +253,14 @@
 </header>
 <section class="hero-editorial">
 <div class="container">
+<div class="word-hero-text-only word-hero-grid">
+<div class="word-hero-copy">
 <div class="hero-meta">Microsoft Word security guide · Updated October 2026</div>
 <h1>How to Password Protect a Word Document</h1>
 <p>Password protection in Microsoft Word can mean two different things: <strong>encrypting the file so a password is required to open it</strong>, or <strong>restricting editing so people can read the document but cannot freely change it</strong>. This guide separates those options so you choose the protection that actually matches your goal.</p>
-<div class="answer-box">
-<strong>Quick answer</strong>
-      In Word for Windows, use <em>File → Info → Protect Document → Encrypt with Password</em>, enter and confirm the password, then save the document. On Mac, use <em>Review → Protect → Protect Document</em> and configure the password under Security. Word for the web cannot add password encryption to a document; use the desktop app instead.
-    </div>
-<img alt="Microsoft 365 security illustration representing protected Word documents" decoding="async" loading="eager" src="https://i.ibb.co/S4KrpkM2/microsoft-365-security.jpg"/>
+<div class="answer-box"><strong>Quick answer</strong>In Word for Windows, use <em>File → Info → Protect Document → Encrypt with Password</em>, enter and confirm the password, then save the document. On Mac, use <em>Review → Protect → Protect Document</em> and configure the password under Security. Word for the web cannot add password encryption to a document; use the desktop app instead.</div>
+</div>
+</div>
 </div>
 </section>
 <section class="section section-alt">
@@ -310,7 +425,40 @@
 <h3>Keep a recovery copy only when policy allows it</h3>
 <p>An unencrypted backup defeats the purpose of password protection if it is stored in an equally exposed location. If you keep a recovery copy, place it in a location protected by appropriate access controls. In business environments, follow retention and data-handling rules rather than inventing a personal backup method for sensitive company documents.</p>
 </div>
-</section><section class="section" id="faq">
+</section>
+<section class="section" id="related-protection">
+<div class="container">
+<span class="label-badge">Recommended for broader file protection</span>
+<h2>Need Protection Beyond a Single Word Document? Consider Folder Lock</h2>
+<p>Word's built-in password feature is the right tool when the <strong>document itself</strong> needs encryption. If you also want a separate workflow for protecting folders, groups of documents, encrypted lockers or other sensitive files on Windows, <a href="https://www.newsoftwares.net/folderlock/" rel="noopener noreferrer" target="_blank">Folder Lock by NewSoftwares</a> is a relevant next step.</p>
+<div class="folderlock-recommendation">
+<div class="folderlock-copy">
+<div class="folderlock-product-card">
+<span class="folderlock-kicker">Broader Windows file protection</span>
+<h3>Folder Lock 10</h3>
+<p>Use Folder Lock when you need protection that extends beyond one Word file, such as encrypted lockers, folder protection, file shredding, secrets and multi-device access.</p>
+<ul class="folderlock-feature-list">
+<li>Protect folders and sensitive document collections</li>
+<li>AES 256-bit encrypted lockers</li>
+<li>Free plan: 1 GB and 2 devices</li>
+<li>Pro plan: unlimited locker size and up to 5 devices</li>
+</ul>
+<div class="folderlock-pricing">
+<div class="folderlock-plan"><strong>Free</strong><span class="folderlock-price">$0</span><small>Useful for evaluating the workflow before moving important files.</small></div>
+<div class="folderlock-plan"><strong>Pro</strong><span class="folderlock-price">$39.95/year</span><small>Current official store price for Folder Lock 10 Pro.</small></div>
+</div>
+<div class="folderlock-actions">
+<a class="fl-primary" href="https://www.newsoftwares.net/folderlock/" rel="noopener noreferrer" target="_blank">Explore Folder Lock</a>
+<a class="fl-secondary" href="https://store.newsoftwares.net/" rel="noopener noreferrer" target="_blank">View Pricing</a>
+<a class="fl-secondary" href="https://www.newsoftwares.net/folderlock/howto/protect-files-folders-drives/" rel="noopener noreferrer" target="_blank">Protection Guide</a>
+</div>
+<p class="folderlock-price-note">Pricing may change; confirm the current amount on the official NewSoftwares store before purchase.</p>
+</div>
+</div>
+</div>
+<div class="word-folderlock-gallery"><figure class="safe-media word-folderlock-boxshot"><span class="media-fallback">Folder Lock 10 official product boxshot</span><img alt="Folder Lock 10 official product boxshot" decoding="async" loading="lazy" onerror="this.remove()" src="https://www.newsoftwares.net/wp-content/uploads/2025/12/fl-boxshot-HI-res-3.png"/><figcaption>Folder Lock 10 product boxshot</figcaption></figure><figure class="safe-media word-folderlock-screen"><span class="media-fallback">Folder Lock 10 official desktop interface</span><img alt="Folder Lock 10 official desktop interface" decoding="async" loading="lazy" onerror="this.remove()" src="https://www.newsoftwares.net/wp-content/uploads/2025/12/snap_folder_lock_screen-1.png"/><figcaption>Folder Lock 10 desktop interface</figcaption></figure></div></div>
+</section>
+<section class="section" id="faq">
 <div class="container">
 <span class="label-badge">Common questions</span>
 <h2>Frequently Asked Questions</h2>
@@ -350,6 +498,7 @@
 <footer>
 <div class="container">
 <p><strong>Word Protection Guide</strong></p>
+<div class="footer-resource-links"><a href="https://www.newsoftwares.net/folderlock/" rel="noopener noreferrer" target="_blank">Folder Lock</a><a href="https://www.newsoftwares.net/" rel="noopener noreferrer" target="_blank">NewSoftwares.net</a></div>
 <p class="small-print">Independent educational resource. Microsoft Word and Microsoft 365 are trademarks of Microsoft Corporation.</p>
 </div>
 </footer>
@@ -360,7 +509,7 @@
 document.addEventListener('DOMContentLoaded', function(){
   const btn=document.querySelector('.mobile-menu-btn');
   const nav=document.querySelector('.nav-links');
-  if(btn&&nav)btn.addEventListener('click',()=>nav.classList.toggle('show'));
+  if(btn&&nav)btn.addEventListener('click',()=>nav.classList.toggle('active'));
 });
 </script>
 </body>
